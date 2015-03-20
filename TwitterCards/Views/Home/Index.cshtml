@@ -1,0 +1,16 @@
+﻿<h2>Welcome!</h2>
+
+@if(!User.Identity.IsAuthenticated)
+{
+	using(@Html.BeginForm("Authorize", "Auth"))
+	{
+		<button type="submit" value="signin">Sign in with Twitter</button>
+	}
+}
+else
+{
+	using (@Html.BeginForm("Logout", "Auth"))
+	{
+		<button type="submit" value="signout">Logout</button>
+	}
+}

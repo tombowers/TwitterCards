@@ -1,0 +1,14 @@
+﻿@model TwitterCards.Views.Home.TimelineViewModel
+
+<h2>Timeline</h2>
+
+@foreach (var tweet in Model.TimelineTweets)
+{
+	<p>
+		<strong>
+			@tweet.Author
+		</strong>
+		<br />
+		@tweet.Text
+	</p>
+}
