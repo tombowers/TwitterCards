@@ -47,9 +47,9 @@ namespace TwitterCards.App.Auth
 
 			this.PersistTwitterAuthorization(user, accessToken);
 
-			var redirectUrl = ControllerContext.HttpContext.Session["RedirectUrl"].ToString();
-			if (!string.IsNullOrWhiteSpace(redirectUrl))
-				return Redirect(redirectUrl);
+			var redirectUrl = ControllerContext.HttpContext.Session["RedirectUrl"];
+			if (redirectUrl != null)
+				return Redirect(redirectUrl.ToString());
 
 			return RedirectToAction("Index", "Home");
 		}
