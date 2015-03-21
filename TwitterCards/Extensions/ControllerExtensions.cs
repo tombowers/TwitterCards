@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Net.Http;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
 using TwitterCards.Core.Implementations;
@@ -9,6 +12,17 @@ namespace TwitterCards.Extensions
 {
 	public static class ControllerExtensions
 	{
+		public static IAccessToken GetTwitterAccessToken(this ApiController controller)
+		{
+			var accessToken = controller.Request.Headers.GetCookies("twitterAccessToken").FirstOrDefault();
+			var accessTokenSecret = controller.Request.Headers.GetCookies("twitterAccessTokenSecret").FirstOrDefault();
+
+			if (accessToken == null || accessTokenSecret == null)
+				return null;
+
+			return new AccessToken(accessToken["twitterAccessToken"].Value, accessTokenSecret["twitterAccessTokenSecret"].Value);
+		}
+
 		public static IAccessToken GetTwitterAccessToken(this Controller controller)
 		{
 			var accessToken = controller.ControllerContext.HttpContext.Request.Cookies.Get("twitterAccessToken");

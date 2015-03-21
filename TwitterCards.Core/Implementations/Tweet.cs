@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using TwitterCards.Core.Interfaces;
 
 namespace TwitterCards.Core.Implementations
 {
+	[DataContract]
+	[KnownType(typeof(Tweet))]
 	public class Tweet : ITweet
 	{
 		public Tweet(long id, string author, string text)
@@ -17,8 +20,13 @@ namespace TwitterCards.Core.Implementations
 			Text = text;
 		}
 
+		[DataMember]
 		public long Id { get; private set; }
+
+		[DataMember]
 		public string Author { get; private set; }
+
+		[DataMember]
 		public string Text { get; private set; }
 	}
 }
