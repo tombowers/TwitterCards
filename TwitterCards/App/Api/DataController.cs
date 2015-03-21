@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using TwitterCards.Core.Implementations;
 using TwitterCards.Core.Interfaces;
 using TwitterCards.Extensions;
 
