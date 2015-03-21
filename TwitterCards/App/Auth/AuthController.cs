@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TwitterCards.Core.Interfaces;
@@ -19,10 +20,13 @@ namespace TwitterCards.App.Auth
 		}
 
 		[AllowAnonymous]
-		public ActionResult Authorize()
+		public ActionResult Authorize(string returnUrl)
 		{
 			// This is the registered callback URL
 			var requestToken = _twitterRetriever.GetRequestToken("http://localhost:31206/Auth/AuthorizeCallback");
+
+			if (!string.IsNullOrWhiteSpace(returnUrl))
+				ControllerContext.HttpContext.Session.Add("RedirectUrl", returnUrl);
 
 			// Redirect to the OAuth Authorization URL
 			var redirectUri = _twitterRetriever.GetAuthorizationUri(requestToken);
@@ -42,6 +46,10 @@ namespace TwitterCards.App.Auth
 			var user = _twitterRetriever.GetUserFromToken(accessToken);
 
 			this.PersistTwitterAuthorization(user, accessToken);
+
+			var redirectUrl = ControllerContext.HttpContext.Session["RedirectUrl"].ToString();
+			if (!string.IsNullOrWhiteSpace(redirectUrl))
+				return Redirect(redirectUrl);
 
 			return RedirectToAction("Index", "Home");
 		}

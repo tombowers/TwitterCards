@@ -1,15 +1,17 @@
-﻿@if (LoggedInUser == null)
-{
-	using (@Html.BeginForm("Authorize", "Auth"))
+﻿<div class="user-sign-in">
+	@if (LoggedInUser == null)
 	{
-		<button type="submit" value="signin">Sign in with Twitter</button>
+		using (@Html.BeginForm("Authorize", "Auth"))
+		{
+			<button type="submit" value="signin">Sign in with Twitter</button>
+		}
 	}
-}
-else
-{
-	using (@Html.BeginForm("Logout", "Auth"))
+	else
 	{
-		<span>Signed in as @("@")@LoggedInUser.Handle </span>
-		<button type="submit" value="signout">Sign out of Twitter</button>
+		using (@Html.BeginForm("Logout", "Auth"))
+		{
+			<span class="gday">Hey <strong>@("@")@LoggedInUser.Handle!</strong></span>
+			<button type="submit" value="signout">Sign out of Twitter</button>
+		}
 	}
-}
+</div>

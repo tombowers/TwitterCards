@@ -25,7 +25,7 @@ namespace TwitterCards.App.Home
             return View();
         }
 
-		public ActionResult Following()
+		public ActionResult Demo()
 		{
 			return View();
 		}

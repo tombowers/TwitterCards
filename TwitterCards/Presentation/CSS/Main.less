@@ -1,0 +1,96 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,900);
+
+@foregroundColor: #4f4f51;
+@backgroundColor: #efefed;
+@highlightColor: #b8bdb9;
+
+@twitterColor: #5ea9dd;
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background: @backgroundColor;
+	color: @foregroundColor;
+	font-weight: 400;
+}
+
+strong {
+	font-weight: 900;
+}
+
+.light {
+	font-weight: 100;
+}
+
+.highlight {
+	color: @highlightColor;
+}
+
+a {
+	text-decoration: none;
+
+	&:visited {	
+		color: inherit;
+	}
+}
+
+button, .button {
+	background: @highlightColor;
+	border: 2px solid white;
+	border-radius: 5px;
+	color: white;
+	padding: 10px;
+	cursor: pointer;
+	font-size: 16px;
+
+	&:hover {
+		background: @foregroundColor;
+	}
+
+	&:visited {
+		color: white;
+	}
+}
+
+nav {
+	display: inline-block;
+
+	ul {
+		list-style: none;
+
+		li {
+			display: inline-block;
+			margin: 10px 30px;
+		}
+	}
+}
+
+.user-sign-in {
+	float: right;
+
+	form {
+			 margin: 10px;
+	     }
+}
+
+.gday {
+	margin: 10px;
+}
+
+.hero {
+	text-align: center;
+	font-size: 100px;
+	line-height: 80px;
+	clear: right;
+}
+
+.demo-links {
+	padding: 20px;
+	margin: 20px;
+	text-align: center;
+
+	a {
+		&:nth-of-type(1) {
+			background: @twitterColor;
+		}
+	}
+}
