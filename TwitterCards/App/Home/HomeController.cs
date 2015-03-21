@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using TwitterCards.Core;
+using TwitterCards.App.Home.ViewModels;
 using TwitterCards.Core.Interfaces;
 using TwitterCards.Extensions;
-using TwitterCards.Views.Home;
 
-namespace TwitterCards.Controllers
+namespace TwitterCards.App.Home
 {
     public class HomeController : Controller
     {
@@ -27,6 +24,11 @@ namespace TwitterCards.Controllers
         {
             return View();
         }
+
+		public ActionResult Following()
+		{
+			return View();
+		}
 
 		public ActionResult Timeline()
 		{

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TwitterCards.Core.Extensions;
 using TweetSharp;
+using TwitterCards.Core.Extensions;
 using TwitterCards.Core.Interfaces;
 
 namespace TwitterCards.Core.Implementations.TweetSharp
@@ -56,7 +56,7 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 			return service.GetAccessToken(new OAuthRequestToken { Token = requestToken }, oauthVerifier).ToAccessToken();
 		}
 
-		public long GetUserIdFromToken(IAccessToken accessToken)
+		public ITwitterUser GetUserFromToken(IAccessToken accessToken)
 		{
 			if (accessToken == null)
 				throw new ArgumentException("accessToken");
@@ -65,7 +65,7 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 			service.AuthenticateWith(accessToken.Token, accessToken.Secret);
 			var user = service.VerifyCredentials(new VerifyCredentialsOptions());
 
-			return user.Id;
+			return user.ToTwitterUser();
 		}
 
 		public IEnumerable<ITweet> ListTweetsOnHomeTimeline(IAccessToken accessToken)

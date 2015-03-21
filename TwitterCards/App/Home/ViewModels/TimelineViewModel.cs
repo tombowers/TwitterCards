@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TwitterCards.Core.Interfaces;
 
-namespace TwitterCards.Views.Home
+namespace TwitterCards.App.Home.ViewModels
 {
 	public class TimelineViewModel
 	{

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TweetSharp;
 
 namespace TwitterCards.Core.Interfaces
 {
@@ -9,7 +8,7 @@ namespace TwitterCards.Core.Interfaces
 		string GetAuthorizationUri(string requestToken);
 		IAccessToken GetAccessToken(string requestToken, string oauthVerifier);
 
-		long GetUserIdFromToken(IAccessToken accessToken);
+		ITwitterUser GetUserFromToken(IAccessToken accessToken);
 
 		IEnumerable<ITweet> ListTweetsOnHomeTimeline(IAccessToken accessToken);
 	}

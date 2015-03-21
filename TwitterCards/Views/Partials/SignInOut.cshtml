@@ -1,0 +1,15 @@
+﻿@if (LoggedInUser == null)
+{
+	using (@Html.BeginForm("Authorize", "Auth"))
+	{
+		<button type="submit" value="signin">Sign in with Twitter</button>
+	}
+}
+else
+{
+	using (@Html.BeginForm("Logout", "Auth"))
+	{
+		<span>Signed in as @("@")@LoggedInUser.Handle </span>
+		<button type="submit" value="signout">Sign out of Twitter</button>
+	}
+}

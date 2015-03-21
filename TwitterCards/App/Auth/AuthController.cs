@@ -4,7 +4,7 @@ using System.Web.Security;
 using TwitterCards.Core.Interfaces;
 using TwitterCards.Extensions;
 
-namespace TwitterCards.Controllers
+namespace TwitterCards.App.Auth
 {
     public class AuthController : Controller
     {
@@ -39,9 +39,9 @@ namespace TwitterCards.Controllers
 			// Exchange the Request Token for an Access Token
 			var accessToken = _twitterRetriever.GetAccessToken(oauth_token, oauth_verifier);
 
-			var userId = _twitterRetriever.GetUserIdFromToken(accessToken);
+			var user = _twitterRetriever.GetUserFromToken(accessToken);
 
-			this.PersistTwitterAuthorization(userId.ToString(), accessToken);
+			this.PersistTwitterAuthorization(user, accessToken);
 
 			return RedirectToAction("Index", "Home");
 		}

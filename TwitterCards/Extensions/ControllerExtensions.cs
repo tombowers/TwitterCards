@@ -20,24 +20,46 @@ namespace TwitterCards.Extensions
 			return new AccessToken(accessToken.Value, accessTokenSecret.Value);
 		}
 
-		public static void PersistTwitterAuthorization(this Controller controller, string userId, IAccessToken token)
+		public static void PersistTwitterAuthorization(this Controller controller, ITwitterUser user, IAccessToken token)
 		{
-			if (string.IsNullOrWhiteSpace(userId))
-				throw new ArgumentException("userId must not be null, empty, or whitespace");
+			if (user == null)
+				throw new ArgumentNullException("user");
 			if (token == null)
 				throw new ArgumentNullException("token");
 
 			// Login
-			FormsAuthentication.SetAuthCookie(userId, false);
+			FormsAuthentication.SetAuthCookie(user.Id.ToString(), false);
 
+			// N.B. This all should normally be added to user identity
 			// Save access token
 			controller.ControllerContext.HttpContext.Response.SetCookie(new HttpCookie("twitterAccessToken", token.Token));
 			controller.ControllerContext.HttpContext.Response.SetCookie(new HttpCookie("twitterAccessTokenSecret", token.Secret));
+
+			// Save user data
+			controller.ControllerContext.HttpContext.Response.SetCookie(new HttpCookie("twitterId", user.Id.ToString()));
+			controller.ControllerContext.HttpContext.Response.SetCookie(new HttpCookie("twitterHandle", user.Handle));
 		}
 
 		public static void ClearTwitterAuthorization(this Controller controller)
 		{
 			FormsAuthentication.SignOut();
+
+			string[] myCookies = controller.ControllerContext.HttpContext.Request.Cookies.AllKeys;
+			foreach (string cookie in myCookies)
+			{
+				controller.ControllerContext.HttpContext.Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+			}
+		}
+
+		public static ITwitterUser GetLoggedInTwitterUser(this Controller controller)
+		{
+			var id = controller.ControllerContext.HttpContext.Request.Cookies.Get("twitterId");
+			var handle = controller.ControllerContext.HttpContext.Request.Cookies.Get("twitterHandle");
+
+			if (id == null || handle == null)
+				return null;
+
+			return new TwitterUser(Convert.ToInt64(id.Value), handle.Value);
 		}
 	}
 }
