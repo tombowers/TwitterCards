@@ -1,15 +1,16 @@
-using Microsoft.Practices.Unity;
 using System;
 using System.Configuration;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.InterceptionExtension;
 using TwitterCards.Core.Implementations.TweetSharp;
 using TwitterCards.Core.Interfaces;
 
-namespace TwitterCards.App_Start
+namespace TwitterCards
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
-    public class UnityConfig
+    public static class UnityConfig
     {
         #region Unity Container
         private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
@@ -29,15 +30,19 @@ namespace TwitterCards.App_Start
         #endregion
 
         /// <summary>Registers the type mappings with the Unity container.</summary>
-        /// <param name="container">The unity container to configure.</param>
+        /// <param name="unityContainer">The unity unityContainer to configure.</param>
         /// <remarks>There is no need to register concrete types such as controllers or API controllers (unless you want to 
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
-        public static void RegisterTypes(IUnityContainer container)
+        public static void RegisterTypes(IUnityContainer unityContainer)
         {
-            // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
+			unityContainer.AddNewExtension<Interception>();
 
-            container.RegisterType<ITwitterRetriever, TweetSharpTwitterRetriever>(
+			var interfaceInterceptor = new Interceptor<InterfaceInterceptor>();
+			var interceptionBehaviour = new InterceptionBehavior<PolicyInjectionBehavior>();
+
+            unityContainer.RegisterType<ITwitterRetriever, TweetSharpTwitterRetriever>(
+				interfaceInterceptor,
+				interceptionBehaviour,
 				new InjectionConstructor(
 				ConfigurationManager.AppSettings["Twitter:ConsumerKey"],
 				ConfigurationManager.AppSettings["Twitter:ConsumerSecret"]

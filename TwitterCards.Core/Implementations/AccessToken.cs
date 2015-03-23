@@ -3,6 +3,7 @@ using TwitterCards.Core.Interfaces;
 
 namespace TwitterCards.Core.Implementations
 {
+	[Serializable]
 	public class AccessToken : IAccessToken
 	{
 		public AccessToken(string token, string secret)

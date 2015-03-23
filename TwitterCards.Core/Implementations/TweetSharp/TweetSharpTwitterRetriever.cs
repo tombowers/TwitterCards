@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TweetSharp;
+using TwitterCards.Core.Caching;
 using TwitterCards.Core.Exceptions;
 using TwitterCards.Core.Extensions;
 using TwitterCards.Core.Interfaces;
@@ -10,8 +11,6 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 {
 	public class TweetSharpTwitterRetriever : ITwitterRetriever
 	{
-		private static IEnumerable<ITweet> _tempCachedTweets;
-
 		private readonly string _consumerKey;
 		private readonly string _consumerSecret;
 
@@ -122,13 +121,11 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 		/// </summary>
 		/// <param name="accessToken"></param>
 		/// <exception cref="TwitterServiceException"></exception>
+		[CacheResult(1)]
 		public IEnumerable<ITweet> ListTweetsOnHomeTimeline(IAccessToken accessToken)
 		{
 			if (accessToken == null)
 				throw new ArgumentNullException("accessToken");
-
-			if (_tempCachedTweets != null)
-				return _tempCachedTweets;
 
 			// In v1.1, all API calls require authentication
 			var service = new TwitterService(_consumerKey, _consumerSecret);
@@ -144,7 +141,6 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 
 				var tweets = tweetSharpTweets.Select(t => t.ToTweet()).ToList();
 
-				_tempCachedTweets = tweets;
 				return tweets;
 			}
 			catch (Exception e)
