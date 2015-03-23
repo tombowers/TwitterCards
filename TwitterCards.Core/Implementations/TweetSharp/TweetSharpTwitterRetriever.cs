@@ -139,8 +139,8 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 
 				var tweetSharpTweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions()).ToList();
 
-				if (tweetSharpTweets.Any(t => t == null || t.User == null))
-					throw new Exception("Forcing exception for awful internal TweetSharp error");
+				// TweetSharp seems to include a tweet with null data at the end of some requests.
+				tweetSharpTweets.RemoveAll(t => t == null || t.User == null);
 
 				var tweets = tweetSharpTweets.Select(t => t.ToTweet()).ToList();
 
