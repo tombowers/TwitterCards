@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using TwitterCards.Core.Exceptions;
+using TwitterCards.Core.Implementations;
 using TwitterCards.Core.Interfaces;
 using TwitterCards.Extensions;
 
@@ -21,8 +23,14 @@ namespace TwitterCards.App.Api
 		[HttpGet]
         public IEnumerable<ITweet> Index()
         {
-			var tweets = _twitterRetriever.ListTweetsOnHomeTimeline(this.GetTwitterAccessToken());
-			return tweets;
+			try
+			{
+				return _twitterRetriever.ListTweetsOnHomeTimeline(this.GetTwitterAccessToken());
+			}
+			catch (TwitterServiceException)
+			{
+				return new Tweet[0];
+			}
         }
     }
 }

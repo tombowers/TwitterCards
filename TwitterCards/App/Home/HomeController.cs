@@ -1,24 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using TwitterCards.App.Home.ViewModels;
-using TwitterCards.Core.Interfaces;
-using TwitterCards.Extensions;
+﻿using System.Web.Mvc;
 
 namespace TwitterCards.App.Home
 {
     public class HomeController : Controller
     {
-		private readonly ITwitterRetriever _twitterRetriever;
-
-		public HomeController(ITwitterRetriever twitterRetriever)
-		{
-			if (twitterRetriever == null)
-				throw new ArgumentNullException("twitterRetriever");
-
-			_twitterRetriever = twitterRetriever;
-		}
-
 		[AllowAnonymous]
         public ActionResult Index()
         {
@@ -28,11 +13,6 @@ namespace TwitterCards.App.Home
 		public ActionResult Demo()
 		{
 			return View();
-		}
-
-		public ActionResult Timeline()
-		{
-			return View(new TimelineViewModel(_twitterRetriever.ListTweetsOnHomeTimeline(this.GetTwitterAccessToken()).ToList()));
 		}
     }
 }

@@ -164,6 +164,7 @@
     <Content Include="Views\Partials\Nav.cshtml" />
     <Content Include="Views\Home\Following.cshtml" />
     <Content Include="Views\Home\Demo.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

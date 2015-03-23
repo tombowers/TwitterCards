@@ -16,7 +16,7 @@ namespace TwitterCards.Core.Extensions
 			return new Abstracted.AccessToken(accessToken.Token, accessToken.TokenSecret);
 		}
 
-		public static ITwitterUser ToTwitterUser(this TweetSharp.TwitterUser user)
+		public static ITwitterUser ToTwitterUser(this TwitterUser user)
 		{
 			return new Abstracted.TwitterUser(user.Id, user.ScreenName);
 		}

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using TwitterCards.Core.Exceptions;
 using TwitterCards.Core.Interfaces;
 using TwitterCards.Extensions;
 
@@ -22,34 +21,45 @@ namespace TwitterCards.App.Auth
 		[AllowAnonymous]
 		public ActionResult Authorize(string returnUrl)
 		{
-			// This is the registered callback URL
-			var requestToken = _twitterRetriever.GetRequestToken("http://localhost:31206/Auth/AuthorizeCallback");
+			try
+			{
+				// This is the registered callback URL
+				var requestToken = _twitterRetriever.GetRequestToken(Url.Action("AuthorizeCallback", "Auth", new {redirectUrl = returnUrl}, Request.Url.Scheme));
 
-			if (!string.IsNullOrWhiteSpace(returnUrl))
-				ControllerContext.HttpContext.Session.Add("RedirectUrl", returnUrl);
-
-			// Redirect to the OAuth Authorization URL
-			var redirectUri = _twitterRetriever.GetAuthorizationUri(requestToken);
-			return new RedirectResult(redirectUri, false /*permanent*/);
+				// Redirect to the OAuth Authorization URL
+				return new RedirectResult(_twitterRetriever.GetAuthorizationUri(requestToken), false /*permanent*/);
+			}
+			catch (TwitterServiceException)
+			{
+				return View("Error");
+			}
 		}
 
 		// This URL is registered as the application's callback at http://dev.twitter.com
 		[AllowAnonymous]
-		public ActionResult AuthorizeCallback(string oauth_token, string oauth_verifier)
+		public ActionResult AuthorizeCallback(string redirectUrl, string oauth_token, string oauth_verifier)
 		{
 			if (string.IsNullOrWhiteSpace(oauth_token) || string.IsNullOrWhiteSpace(oauth_verifier))
 				return RedirectToAction("Index", "Home");
 
-			// Exchange the Request Token for an Access Token
-			var accessToken = _twitterRetriever.GetAccessToken(oauth_token, oauth_verifier);
+			IAccessToken accessToken;
+			ITwitterUser user;
 
-			var user = _twitterRetriever.GetUserFromToken(accessToken);
+			try
+			{
+				// Exchange the Request Token for an Access Token
+				accessToken = _twitterRetriever.GetAccessToken(oauth_token, oauth_verifier);
+				user = _twitterRetriever.GetUserFromToken(accessToken);
+			}
+			catch (TwitterServiceException)
+			{
+				return View("Error");
+			}
 
 			this.PersistTwitterAuthorization(user, accessToken);
 
-			var redirectUrl = ControllerContext.HttpContext.Session["RedirectUrl"];
-			if (redirectUrl != null)
-				return Redirect(redirectUrl.ToString());
+			if (!string.IsNullOrWhiteSpace(redirectUrl))
+				return Redirect(redirectUrl);
 
 			return RedirectToAction("Index", "Home");
 		}
