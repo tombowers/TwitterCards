@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter Cards</title>
 
-	@Styles.Render("~/Bundles/Main")
+	@Styles.Render("~/Bundles/MainCss")
+	
+	@RenderSection("OptionalStyles", false)
 </head>
 
 <body>
 	@Html.Partial("~/Views/Partials/SignInOut.cshtml")
 
 	@RenderBody()
+	
+	@RenderSection("OptionalScripts", false)
 </body>
 
 </html>

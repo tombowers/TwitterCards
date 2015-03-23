@@ -1,0 +1,39 @@
+﻿.tweet-container {
+	clear: right;
+}
+
+.tweet-card {
+	.opacity(1);
+	background: white;
+	margin: 8px;
+	padding: 8px;
+	.border-radius;
+	.box-shadow;
+
+	.tweet-author {
+		font-weight: 900;
+		margin-bottom: 8px;
+	}
+}
+
+.box-shadow {
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	-moz-box-shadow:    0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	box-shadow:         0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.border-radius (@radius: 2px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+
+	-moz-background-clip:    padding;
+	-webkit-background-clip: padding-box;
+	background-clip:         padding-box;
+}
+
+.opacity (@opacity: 0.5) {
+	-webkit-opacity: 	@opacity;
+	-moz-opacity: 		@opacity;
+	opacity: 		@opacity;
+}

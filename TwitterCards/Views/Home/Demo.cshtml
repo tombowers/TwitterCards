@@ -1,21 +1,16 @@
-﻿
-@{
-    Layout = null;
+﻿@section OptionalStyles
+{
+	@Styles.Render("~/Bundles/DemoCss")	
 }
 
-<!DOCTYPE html>
-<html>
+@section OptionalScripts
+{
+	@Scripts.Render("~/Bundles/jQuery")
+	@Scripts.Render("~/Bundles/jQueryTransit")
 
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Twitter Cards - Demo</title>
+	@Scripts.Render("~/Bundles/DemoJavascript")
+}
 
-	@Styles.Render("~/Bundles/Main")
-</head>
-
-<body>
-	demo
-</body>
-
-</html>
+<div class="tweet-container">
+	
+</div>

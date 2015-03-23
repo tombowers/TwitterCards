@@ -131,7 +131,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <None Include="Presentation\CSS\Main.less" />
+    <None Include="Presentation\Css\Main.less" />
+    <None Include="Presentation\Css\Demo.less" />
+    <Content Include="Presentation\Javascript\jQuery\jquery-2.1.3.min.js" />
+    <Content Include="Presentation\Javascript\Demo.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
