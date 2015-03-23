@@ -1,6 +1,13 @@
 ﻿<nav>
 	<ul>
-		<li><strong>@Html.ActionLink("Home", "Index", "Home")</strong></li>
-		<li><strong>@Html.ActionLink("Timeline", "Timeline", "Home")</strong></li>
+		<li class="@(ControllerName == "Home" && ActionName == "Index" ? "selected" : "")">
+			<strong>@Html.ActionLink("Home", "Index", "Home")</strong>
+		</li>
+		<li class="@(ControllerName == "Home" && ActionName == "Demo" ? "selected" : "")">
+			<strong>@Html.ActionLink("Demo", "Demo", "Home")</strong>
+		</li>
+		<li>
+			<strong><a target="_blank" href="https://github.com/tombowers/TwitterCards">Source</a></strong>
+		</li>
 	</ul>
 </nav>

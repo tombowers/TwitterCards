@@ -5,18 +5,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter Cards</title>
+	
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,900' rel='stylesheet' type='text/css'>
 
 	@Styles.Render("~/Bundles/MainCss")
 	
 	@RenderSection("OptionalStyles", false)
 </head>
 
-<body>
-	@Html.Partial("~/Views/Partials/SignInOut.cshtml")
+	<body>
+		@RenderSection("OptionalLogo", false)
 
-	@RenderBody()
+		@Html.Partial("~/Views/Partials/SignInOut.cshtml")
+		@Html.Partial("~/Views/Partials/Nav.cshtml")
+
+		@RenderBody()
 	
-	@RenderSection("OptionalScripts", false)
-</body>
+		@RenderSection("OptionalScripts", false)
+	</body>
 
 </html>

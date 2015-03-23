@@ -168,6 +168,7 @@
     <Content Include="Views\Home\Following.cshtml" />
     <Content Include="Views\Home\Demo.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Presentation\Javascript\jQuery\jquery.transit.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

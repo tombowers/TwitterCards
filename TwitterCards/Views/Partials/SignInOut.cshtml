@@ -10,8 +10,8 @@
 	{
 		using (@Html.BeginForm("Logout", "Auth"))
 		{
-			<span class="gday">Hey <strong>@("@")@LoggedInUser.Handle!</strong></span>
 			<button type="submit" value="signout">Sign out of Twitter</button>
+			<div class="gday">Hey <strong>@("@")@LoggedInUser.Handle!</strong></div>
 		}
 	}
 </div>

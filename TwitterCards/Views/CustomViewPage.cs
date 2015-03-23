@@ -6,12 +6,22 @@ namespace TwitterCards.Views
 {
 	public abstract class CustomViewPage<T> : WebViewPage<T>
 	{
-		public ITwitterUser LoggedInUser
+		protected ITwitterUser LoggedInUser
 		{
 			get
 			{
 				return ((Controller)ViewContext.Controller).GetLoggedInTwitterUser();
 			}
+		}
+
+		protected string ControllerName
+		{
+			get { return ViewContext.Controller.ControllerContext.RouteData.Values["controller"].ToString(); }
+		}
+
+		protected string ActionName
+		{
+			get { return ViewContext.Controller.ControllerContext.RouteData.Values["action"].ToString(); }
 		}
 	}
 

@@ -3,23 +3,29 @@
 }
 
 .tweet-card {
-	.opacity(1);
+	-webkit-transition: translate3d(0,0,0);
+	cursor: pointer;
 	background: white;
-	margin: 8px;
-	padding: 8px;
+	margin: 10px;
+	padding: 20px;
+	border-bottom: 6px solid white;
+	.drop-shadow;
 	.border-radius;
-	.box-shadow;
 
 	.tweet-author {
 		font-weight: 900;
 		margin-bottom: 8px;
 	}
+
+	.tweet-text {
+		font-size: 20px;
+	}
 }
 
-.box-shadow {
-	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-	-moz-box-shadow:    0 2px 5px 0 rgba(0, 0, 0, 0.26);
-	box-shadow:         0 2px 5px 0 rgba(0, 0, 0, 0.26);
+.drop-shadow (@x: 0, @y: 1px, @blur: 1px, @spread: 0, @alpha: 0.25) {
+	-webkit-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+	-moz-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+	box-shadow:		@x @y @blur @spread rgba(0, 0, 0, @alpha);
 }
 
 .border-radius (@radius: 2px) {
@@ -30,10 +36,4 @@
 	-moz-background-clip:    padding;
 	-webkit-background-clip: padding-box;
 	background-clip:         padding-box;
-}
-
-.opacity (@opacity: 0.5) {
-	-webkit-opacity: 	@opacity;
-	-moz-opacity: 		@opacity;
-	opacity: 		@opacity;
 }
