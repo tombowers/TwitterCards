@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
 	var tweetContainer = $('.tweet-container');
-	var loadingText = $('<p>Getting Tweets...</p>');
+	var loadingText = $('<p class="loading">Getting Tweets...</p>');
 	tweetContainer.append(loadingText);
 
 	tweetContainer.on('mouseenter', '.tweet-card', function() {
@@ -23,8 +23,10 @@
 
 		tweetContainer.append(tweetCard);
 			
-		tweetCard.transition({ scale: 0.6, duration: 0 })
-			.transition({ scale: 1, duration: 50 }, function () {
+		tweetCard
+			.transition({ scale: 0.7, duration: 0 })
+			.transition({ scale: 1.02, duration: 50 })
+			.transition({ scale: 1, duration: 30 }, function () {
 				tweetData.length - 1 > index && addCard(tweetContainer, tweetData, index + 1);
 			});
 	};
