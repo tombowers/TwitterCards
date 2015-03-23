@@ -1,6 +1,6 @@
 ﻿@foregroundColor: #4f4f51;
-@backgroundColor: #efefed;
-@highlightColor: #b8bdb9;
+@backgroundColor: #e0e0e0;
+@highlightColor: #adb2ae;
 
 @twitterColor: #5ea9dd;
 
@@ -35,7 +35,7 @@ a {
 }
 
 button, .button {
-	background: @highlightColor;
+	background: @twitterColor;
 	border: 2px solid white;
 	border-radius: 5px;
 	color: white;
@@ -44,7 +44,7 @@ button, .button {
 	font-size: 16px;
 
 	&:hover {
-		background: @foregroundColor;
+		background: darken(@twitterColor, 30%);
 	}
 
 	&:visited {
@@ -92,9 +92,18 @@ nav {
 }
 
 .logo {
-	display: inline-block;
-	font-size: 20px;
-	margin: 20px;
+	  display: inline-block;
+	  font-size: 28px;
+	  margin: 20px;
+	  line-height: 26px;
+
+	.highlight {
+		  color: #5ea9dd;
+	}
+
+	.light {
+		font-size: 26px;
+	}
 }
 
 .demo-links {
@@ -103,11 +112,11 @@ nav {
 	text-align: center;
 
 	a {
-		&:nth-of-type(1) {
-			background: @twitterColor;
+		&:nth-of-type(2) {
+			background: @highlightColor;
 
 			&:hover {
-				background: darken(@twitterColor, 30%);
+				background: darken(@highlightColor, 30%);
 			}
 		}
 	}

@@ -6,19 +6,26 @@
 	-webkit-transition: translate3d(0,0,0);
 	cursor: pointer;
 	background: white;
-	margin: 10px 20px;
-	padding: 20px;
+	margin: 20px 0 0 20px;
 	border-bottom: 6px solid white;
+	width: 300px;
+	height: 180px;
+	display: inline-block;
+	overflow: hidden;
 	.drop-shadow;
 	.border-radius;
 
 	.tweet-author {
 		font-weight: 900;
 		margin-bottom: 8px;
+		padding: 10px;
+		background: #c6cacb;
+		.border-radiuses(3px, 0, 0, 3px);
 	}
 
 	.tweet-text {
-		font-size: 20px;
+		font-size: 16px;
+		padding: 10px;
 		color: #777;
 	}
 }
@@ -35,7 +42,7 @@
 	box-shadow:		@x @y @blur @spread rgba(0, 0, 0, @alpha);
 }
 
-.border-radius (@radius: 2px) {
+.border-radius (@radius: 3px) {
 	-webkit-border-radius: @radius;
 	-moz-border-radius:    @radius;
 	border-radius:         @radius;
@@ -43,4 +50,25 @@
 	-moz-background-clip:    padding;
 	-webkit-background-clip: padding-box;
 	background-clip:         padding-box;
+}
+
+.border-radiuses (@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+	-webkit-border-top-right-radius:    @topright;
+	-webkit-border-bottom-right-radius: @bottomright;
+	-webkit-border-bottom-left-radius:  @bottomleft;
+	-webkit-border-top-left-radius:     @topleft;
+
+	-moz-border-radius-topright:        @topright;
+	-moz-border-radius-bottomright:     @bottomright;
+	-moz-border-radius-bottomleft:      @bottomleft;
+	-moz-border-radius-topleft:         @topleft;
+
+	border-top-right-radius:            @topright;
+	border-bottom-right-radius:         @bottomright;
+	border-bottom-left-radius:          @bottomleft;
+	border-top-left-radius:             @topleft;
+
+	-moz-background-clip:    padding; 
+	-webkit-background-clip: padding-box; 
+	background-clip:         padding-box; 
 }
