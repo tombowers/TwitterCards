@@ -1,4 +1,5 @@
-﻿using TweetSharp;
+﻿using System.Linq;
+using TweetSharp;
 using TwitterCards.Core.Interfaces;
 using Abstracted = TwitterCards.Core.Implementations;
 
@@ -8,7 +9,14 @@ namespace TwitterCards.Core.Extensions
 	{
 		public static ITweet ToTweet(this TwitterStatus twitterStatus)
 		{
-			return new Abstracted.Tweet(twitterStatus.Id, twitterStatus.User.ToTwitterUser(), twitterStatus.Text);
+			var mediaEntity = twitterStatus.Entities.Media.FirstOrDefault();
+
+			return new Abstracted.Tweet(
+				twitterStatus.Id,
+				twitterStatus.User.ToTwitterUser(),
+				twitterStatus.Text,
+				mediaEntity != null ? mediaEntity.MediaUrl : null
+			);
 		}
 
 		public static IAccessToken ToAccessToken(this OAuthAccessToken accessToken)

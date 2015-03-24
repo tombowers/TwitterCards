@@ -8,7 +8,7 @@ namespace TwitterCards.Core.Implementations
 	[KnownType(typeof(Tweet))]
 	public class Tweet : ITweet
 	{
-		public Tweet(long id, ITwitterUser author, string text)
+		public Tweet(long id, ITwitterUser author, string text, string mediaUrl)
 		{
 			if (author == null)
 				throw new ArgumentNullException("author");
@@ -18,6 +18,7 @@ namespace TwitterCards.Core.Implementations
 			Id = id;
 			Author = author;
 			Text = text;
+			MediaUrl = mediaUrl;
 		}
 
 		[DataMember]
@@ -31,5 +32,8 @@ namespace TwitterCards.Core.Implementations
 
 		[DataMember]
 		public string Text { get; private set; }
+
+		[DataMember]
+		public string MediaUrl { get; private set; }
 	}
 }

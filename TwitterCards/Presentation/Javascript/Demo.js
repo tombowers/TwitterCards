@@ -126,6 +126,11 @@
 		markup += '    </div>';
 		markup += '    <div class="tweet-text">' + tweet.Text + '</div>';
 		markup += '  </div>';
+
+		if (tweet.MediaUrl) {
+			markup += '<div class="tweet-image"><img src="' + tweet.MediaUrl + '" /></div>';
+		}
+
 		markup += '</div>';
 
 		return $(markup);

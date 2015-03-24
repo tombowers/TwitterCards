@@ -5,5 +5,6 @@
 		long Id { get; }
 		ITwitterUser Author { get; }
 		string Text { get; }
+		string MediaUrl { get; }
 	}
 }
