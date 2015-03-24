@@ -77,8 +77,11 @@
     <Compile Include="Exceptions\TwitterServiceException.cs" />
     <Compile Include="Extensions\TweetSharpExtensions.cs" />
     <Compile Include="Implementations\AccessToken.cs" />
+    <Compile Include="Implementations\Native\OAuthProvider.cs" />
+    <Compile Include="Implementations\Native\TwitterRetriever.cs" />
     <Compile Include="Implementations\TwitterUser.cs" />
     <Compile Include="Interfaces\IAccessToken.cs" />
+    <Compile Include="Interfaces\IOAuthProvider.cs" />
     <Compile Include="Interfaces\ITweet.cs" />
     <Compile Include="Interfaces\ITwitterRetriever.cs" />
     <Compile Include="Interfaces\ITwitterUser.cs" />
