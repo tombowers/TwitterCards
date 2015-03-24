@@ -8,7 +8,7 @@ namespace TwitterCards.Core.Extensions
 	{
 		public static ITweet ToTweet(this TwitterStatus twitterStatus)
 		{
-			return new Abstracted.Tweet(twitterStatus.Id, twitterStatus.Author.ScreenName, twitterStatus.Text);
+			return new Abstracted.Tweet(twitterStatus.Id, twitterStatus.User.ToTwitterUser(), twitterStatus.Text);
 		}
 
 		public static IAccessToken ToAccessToken(this OAuthAccessToken accessToken)
@@ -18,7 +18,7 @@ namespace TwitterCards.Core.Extensions
 
 		public static ITwitterUser ToTwitterUser(this TwitterUser user)
 		{
-			return new Abstracted.TwitterUser(user.Id, user.ScreenName);
+			return new Abstracted.TwitterUser(user.Id, user.ScreenName, user.ProfileImageUrl);
 		}
 	}
 }

@@ -4,5 +4,6 @@
 	{
 		long Id { get; }
 		string Handle { get; }
+		string ProfileImageUrl { get; }
 	}
 }

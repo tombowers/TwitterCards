@@ -3,7 +3,7 @@
 	public interface ITweet
 	{
 		long Id { get; }
-		string Author { get; }
+		ITwitterUser Author { get; }
 		string Text { get; }
 	}
 }

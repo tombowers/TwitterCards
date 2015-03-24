@@ -4,9 +4,9 @@
 	var loadingText = $('<p class="loading">Getting Tweets...</p>');
 	tweetContainer.append(loadingText);
 
-	tweetContainer.on('mouseenter', '.tweet-card', function() {
+	tweetContainer.on('mouseenter', '.tweet-card .inner', function() {
 		$(this).css({ borderBottom: '6px solid #5ea9dd' });
-	}).on('mouseleave', '.tweet-card', function () {
+	}).on('mouseleave', '.tweet-card .inner', function () {
 		$(this).css({ borderBottom: '6px solid white' });
 	});
 
@@ -19,7 +19,7 @@
 	var addCard = function (container, tweetData, index) {
 		var tweet = tweetData[index];
 
-		var tweetCard = $('<div class="tweet-card"><div class="tweet-author">@' + tweet.Author + '</div><div class="tweet-text">' + tweet.Text + '</div></div>');
+		var tweetCard = $('<div class="tweet-card"><img class="profile-image" src="' + tweet.Author.ProfileImageUrl + '"/><div class="inner"><div class="tweet-author">@' + tweet.Author.Handle + '</div><div class="tweet-text">' + tweet.Text + '</div></div></div>');
 
 		tweetContainer.append(tweetCard);
 			
