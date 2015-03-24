@@ -32,5 +32,18 @@ namespace TwitterCards.App.Api
 				return new Tweet[0];
 			}
         }
+
+		[HttpGet]
+	    public ITweet Tweet(long id)
+	    {
+			try
+			{
+				return _twitterRetriever.GetTweet(id, this.GetTwitterAccessToken());
+			}
+			catch (TwitterServiceException)
+			{
+				return null;
+			}
+	    }
     }
 }

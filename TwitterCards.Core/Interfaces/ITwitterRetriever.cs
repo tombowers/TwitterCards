@@ -10,5 +10,6 @@ namespace TwitterCards.Core.Interfaces
 		ITwitterUser GetUserFromToken(IAccessToken accessToken);
 
 		IEnumerable<ITweet> ListTweetsOnHomeTimeline(IAccessToken accessToken);
+		ITweet GetTweet(long id, IAccessToken accessToken);
 	}
 }

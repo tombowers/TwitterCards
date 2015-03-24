@@ -127,7 +127,31 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 			}
 			catch (Exception e)
 			{
-				throw new TwitterServiceException("Unable to get access token.", e);
+				throw new TwitterServiceException("Unable to get home timeline.", e);
+			}
+		}
+
+		[CacheResult(10)]
+		public ITweet GetTweet(long id, IAccessToken accessToken)
+		{
+			if (accessToken == null)
+				throw new ArgumentNullException("accessToken");
+
+			var service = new TwitterService(_consumerKey, _consumerSecret);
+
+			try
+			{
+				service.AuthenticateWith(accessToken.Token, accessToken.Secret);
+
+				var tweet = service.GetTweet(new GetTweetOptions { Id = id });
+				if (tweet == null)
+					throw new TwitterServiceException("TweetSharp returned null for specified tweet.");
+
+				return tweet.ToTweet();
+			}
+			catch (Exception e)
+			{
+				throw new TwitterServiceException("Unable to get home timeline.", e);
 			}
 		}
 	}
