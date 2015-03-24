@@ -26,11 +26,11 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 		}
 
 		/// <summary>
-		/// Get a request token.
+		/// Get a url which can be used to prompt a user for authorization.
 		/// </summary>
 		/// <param name="callbackUrl"></param>
 		/// <exception cref="TwitterServiceException"></exception>
-		public string GetRequestToken(string callbackUrl)
+		public string GetAuthorizationUri(string callbackUrl)
 		{
 			if (string.IsNullOrWhiteSpace(callbackUrl))
 				throw new ArgumentException("callbackUrl must not be null, empty, or whitespace");
@@ -39,33 +39,15 @@ namespace TwitterCards.Core.Implementations.TweetSharp
 
 			try
 			{
-				return service.GetRequestToken(callbackUrl).Token;
+				var response = service.GetRequestToken(callbackUrl);
+				if (response == null)
+					throw new TwitterServiceException("Unable to retrieve request token.");
+
+				return service.GetAuthorizationUri(new OAuthRequestToken { Token = response.Token }).ToString();
 			}
 			catch (Exception e)
 			{
-				throw new TwitterServiceException("Unable to get request token.", e);
-			}
-		}
-
-		/// <summary>
-		/// Get a url which can be used to prompt a user for authorization.
-		/// </summary>
-		/// <param name="requestToken"></param>
-		/// <exception cref="TwitterServiceException"></exception>
-		public string GetAuthorizationUri(string requestToken)
-		{
-			if (string.IsNullOrWhiteSpace(requestToken))
-				throw new ArgumentException("requestToken must not be null, empty, or whitespace");
-
-			var service = new TwitterService(_consumerKey, _consumerSecret);
-
-			try
-			{
-				return service.GetAuthorizationUri(new OAuthRequestToken {Token = requestToken}).ToString();
-			}
-			catch (Exception e)
-			{
-				throw new TwitterServiceException("Unable to get authorization uri.", e);
+				throw new TwitterServiceException("Unable to initiate login.", e);
 			}
 		}
 

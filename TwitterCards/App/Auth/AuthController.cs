@@ -24,10 +24,10 @@ namespace TwitterCards.App.Auth
 			try
 			{
 				// This is the registered callback URL
-				var requestToken = _twitterRetriever.GetRequestToken(Url.Action("AuthorizeCallback", "Auth", new {redirectUrl = returnUrl}, Request.Url.Scheme));
+				var callbackUrl = Url.Action("AuthorizeCallback", "Auth", new {redirectUrl = returnUrl}, Request.Url.Scheme);
 
 				// Redirect to the OAuth Authorization URL
-				return new RedirectResult(_twitterRetriever.GetAuthorizationUri(requestToken), false /*permanent*/);
+				return new RedirectResult(_twitterRetriever.GetAuthorizationUri(callbackUrl), false /*permanent*/);
 			}
 			catch (TwitterServiceException)
 			{
