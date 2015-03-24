@@ -24,6 +24,9 @@ namespace TwitterCards.Core.Implementations
 		public long Id { get; private set; }
 
 		[DataMember]
+		public string JavascriptId { get { return Id.ToString(); } }
+
+		[DataMember]
 		public ITwitterUser Author { get; private set; }
 
 		[DataMember]
