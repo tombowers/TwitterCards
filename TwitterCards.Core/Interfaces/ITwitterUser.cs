@@ -3,7 +3,8 @@
 	public interface ITwitterUser
 	{
 		long Id { get; }
-		string Handle { get; }
+		string Name { get; }
+		string ScreenName { get; }
 		string ProfileImageUrl { get; }
 	}
 }

@@ -18,7 +18,7 @@ namespace TwitterCards.Core.Extensions
 
 		public static ITwitterUser ToTwitterUser(this TwitterUser user)
 		{
-			return new Abstracted.TwitterUser(user.Id, user.ScreenName, user.ProfileImageUrl);
+			return new Abstracted.TwitterUser(user.Id, user.Name, user.ScreenName, user.ProfileImageUrl);
 		}
 	}
 }

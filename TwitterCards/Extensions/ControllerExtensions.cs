@@ -51,7 +51,7 @@ namespace TwitterCards.Extensions
 
 			// Save user data
 			controller.ControllerContext.HttpContext.Response.SetCookie(new HttpCookie("twitterId", user.Id.ToString()));
-			controller.ControllerContext.HttpContext.Response.SetCookie(new HttpCookie("twitterHandle", user.Handle));
+			controller.ControllerContext.HttpContext.Response.SetCookie(new HttpCookie("twitterName", user.Name));
 		}
 
 		public static void ClearTwitterAuthorization(this Controller controller)
@@ -68,12 +68,12 @@ namespace TwitterCards.Extensions
 		public static ITwitterUser GetLoggedInTwitterUser(this Controller controller)
 		{
 			var id = controller.ControllerContext.HttpContext.Request.Cookies.Get("twitterId");
-			var handle = controller.ControllerContext.HttpContext.Request.Cookies.Get("twitterHandle");
+			var name = controller.ControllerContext.HttpContext.Request.Cookies.Get("twitterName");
 
-			if (id == null || handle == null)
+			if (id == null || name == null)
 				return null;
 
-			return new TwitterUser(Convert.ToInt64(id.Value), handle.Value);
+			return new TwitterUser(Convert.ToInt64(id.Value), name.Value);
 		}
 	}
 }

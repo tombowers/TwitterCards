@@ -8,13 +8,14 @@ namespace TwitterCards.Core.Implementations
 	[KnownType(typeof(TwitterUser))]
 	public class TwitterUser : ITwitterUser
 	{
-		public TwitterUser(long id, string handle, string profileImageUrl = null)
+		public TwitterUser(long id, string name, string screenName = null, string profileImageUrl = null)
 		{
-			if (string.IsNullOrWhiteSpace(handle))
-				throw new ArgumentException("handle must not be null, empty, or whitespace");
+			if (string.IsNullOrWhiteSpace(name))
+				throw new ArgumentException("name must not be null, empty, or whitespace");
 
 			Id = id;
-			Handle = handle;
+			Name = name;
+			ScreenName = screenName;
 			ProfileImageUrl = profileImageUrl;
 		}
 
@@ -22,9 +23,13 @@ namespace TwitterCards.Core.Implementations
 		public long Id { get; private set; }
 
 		[DataMember]
-		public string Handle { get; private set; }
+		public string Name { get; private set; }
+
+		[DataMember]
+		public string ScreenName { get; private set; }
 
 		[DataMember]
 		public string ProfileImageUrl { get; private set; }
+
 	}
 }
