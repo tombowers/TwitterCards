@@ -3,16 +3,13 @@
 
 	addTweets($('.tweet-container'));
 
-	function jsonRequest(url, callback, failure, always) {
+	function jsonRequest(url, callback, failure) {
 		$.ajax(url)
 			.done(function (data) {
 				callback && callback(data);
 			})
 			.fail(function () {
 				failure && failure();
-			})
-			.always(function () {
-				always && always();
 			});
 	}
 
@@ -41,11 +38,13 @@
 
 			var $existingTweetDetailElement = $('.tweet-detail*[data-tweet-id="' + id + '"]');
 			if ($existingTweetDetailElement.length === 0) {
+				showBackgroundMask();
 				jsonRequest('../api/data/tweet/' + id, function(data) {
 					$existingTweetDetailElement = createTweetDetail(data);
 
-					showBackgroundMask();
 					appearanceAnimation($existingTweetDetailElement);
+				}, function () {
+					hideBackgroundMask();
 				});
 			} else {
 				showBackgroundMask();
@@ -56,6 +55,7 @@
 
 	// Add, animate, rave, repeat
 	function addCard($container, tweetData, index) {
+		console.log('addCard' + index);
 		var tweet = tweetData[index];
 
 		var tweetCard = createTimelineTweetElement(tweet);
@@ -108,6 +108,10 @@
 		fadeOut($('.tweet-detail'));
 	}
 
+	function hideBackgroundMask() {
+		fadeOut($('.mask'));
+	}
+
 	function appearanceAnimation($element) {
 		$element
 			.show()
@@ -144,6 +148,11 @@
 		markup += '    <div class="tweet-author">@' + tweet.Author.ScreenName + '</div>';
 		markup += '    <div class="tweet-text">' + tweet.Text + '</div>';
 		markup += '  </div>';
+		
+		if (tweet.MediaUrl != null) {
+			markup += '<div class="tweet-image"><img src="../Presentation/Images/image_icon_32.png" /></div>';
+		}
+
 		markup += '</div>';
 
 		return $(markup);
